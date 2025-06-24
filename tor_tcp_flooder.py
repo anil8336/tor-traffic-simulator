@@ -12,7 +12,7 @@ import requests
 
 TOR_SOCKS_PORT = 9050
 TOR_CONTROL_PORT = 9051
-TOR_PASSWORD = '16:CF65F54100EAEC7060648AB039E33E70960EC890F1CSCE9CAAA778B7B2'
+TOR_PASSWORD = 'kalikali'
 
 # Set TOR as the default proxy for all connections
 def set_tor_proxy():
