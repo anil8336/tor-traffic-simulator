@@ -1,4 +1,6 @@
+requests
 stem
 pysocks
 scapy
-requests
+colorama
+pyfiglet

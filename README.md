@@ -1,27 +1,57 @@
-# TOR Traffic Simulator (For Lab Use Only)
+# HOIC-Style DoS Tool
 
-⚠️ **Legal Disclaimer**  
-This tool is designed strictly for **educational and authorized penetration testing in lab environments only**.  
-Do **NOT** use this on public networks or without permission.
+A command-line, Tor-integrated DoS testing tool inspired by HOIC. Built for ethical testing in controlled environments.
 
-## 💡 Features
-- TCP SYN traffic generation via `scapy`
-- HTTP GET/POST request flood using TOR
-- TOR IP rotation every 3 seconds
-- Threaded concurrency
-- Random URL paths and user-agent headers
+## ⚠️ Legal Disclaimer
+> This tool is intended **strictly for educational and authorized security testing**. Do not use it against any system or network without **explicit written permission**.
+
+## 📦 Features
+- HTTP GET flood and TCP connection flood modes
+- Multi-threaded execution
+- Tor IP rotation every N seconds
+- User-agent randomization
+- Supports target IP or domain
 
 ## 🚀 Usage
-
 ```bash
-# TCP SYN traffic to a test IP
-python tor_tcp_flooder.py --target 192.168.1.100 --protocol tcp --duration 30
+sudo python3 tor_tcp_flooder.py
+```
+You will be prompted for:
+- Target URL/IP
+- Attack mode (`HTTP` or `TCP`)
+- Port (if `TCP`)
+- Thread count
+- Tor password
+- Tor IP rotation interval (seconds)
+- Whether to enable Tor integration
 
-# HTTP GET flood to a test site
-python tor_tcp_flooder.py --target example.com --protocol http --duration 30
+## 💻 Example
+```text
+Enter target URL or IP: https://testfire.net
+Enter mode (HTTP/TCP): HTTP
+Enter Tor control password: kalikali
+Enter number of threads: 10
+Enter Tor IP rotation interval (seconds): 3
+Use Tor for IP rotation? (y/n): y
+```
 
-# Use POST method instead of GET
-python tor_tcp_flooder.py --target example.com --protocol http --duration 30 --post
+## 🧰 Requirements
+Install required Python packages:
+```bash
+pip install -r requirements.txt
+```
 
-# Use multiple threads
-python tor_tcp_flooder.py --target example.com --protocol http --duration 60 --threads 4
+Install system tools:
+```bash
+sudo apt update && sudo apt install tor python3-pip
+```
+
+Ensure `/etc/tor/torrc` includes:
+```
+ControlPort 9051
+HashedControlPassword <your-hashed-pass>
+```
+Generate hashed password:
+```bash
+tor --hash-password yourpassword
+```
